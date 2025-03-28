@@ -20,36 +20,7 @@ const renderTodos = () => {
         editItemButton.classList.add('button');
         editItemButton.innerHTML = "Edit";
         editItemButton.addEventListener("click", () => {
-            listItem.innerHTML = "";
-            const editItemInput = document.createElement('input');
-            const toggleCompleteItem = document.createElement('button');
-            const saveEditItem = document.createElement('button');
-            const cancelEditItem = document.createElement('button');
-            editItemInput.type = "text";
-            editItemInput.value = todo.text;
-            toggleCompleteItem.innerHTML = todo.completed ? "Completed" : "Incomplete";
-            toggleCompleteItem.classList.add('button');
-            toggleCompleteItem.addEventListener("click", () => {
-                todo.completed = !todo.completed;
-                toggleCompleteItem.innerHTML = todo.completed ? "Completed" : "Incomplete";
-            });
-            saveEditItem.innerHTML = "Save";
-            saveEditItem.classList.add('button');
-            saveEditItem.addEventListener('click', () => {
-                if (editItemInput.value) {
-                    todo.text = editItemInput.value;
-                }
-                renderTodos();
-            });
-            cancelEditItem.innerHTML = "Cancel";
-            cancelEditItem.classList.add('button');
-            cancelEditItem.addEventListener('click', () => {
-                renderTodos();
-            });
-            listItem.appendChild(editItemInput);
-            listItem.appendChild(toggleCompleteItem);
-            listItem.appendChild(saveEditItem);
-            listItem.appendChild(cancelEditItem);
+            editTodo(listItem, todo);
         });
         const deleteItemButton = document.createElement('button');
         deleteItemButton.classList.add('button');
@@ -74,6 +45,38 @@ const addTodo = (todoText) => {
 const deleteTodo = (index, todos) => {
     todos.splice(index, 1);
     renderTodos();
+};
+const editTodo = (listItem, todo) => {
+    listItem.innerHTML = "";
+    const editItemInput = document.createElement('input');
+    const toggleCompleteItem = document.createElement('button');
+    const saveEditItem = document.createElement('button');
+    const cancelEditItem = document.createElement('button');
+    editItemInput.type = "text";
+    editItemInput.value = todo.text;
+    toggleCompleteItem.innerHTML = todo.completed ? "Completed" : "Incomplete";
+    toggleCompleteItem.classList.add('button');
+    toggleCompleteItem.addEventListener("click", () => {
+        todo.completed = !todo.completed;
+        toggleCompleteItem.innerHTML = todo.completed ? "Completed" : "Incomplete";
+    });
+    saveEditItem.innerHTML = "Save";
+    saveEditItem.classList.add('button');
+    saveEditItem.addEventListener('click', () => {
+        if (editItemInput.value) {
+            todo.text = editItemInput.value;
+        }
+        renderTodos();
+    });
+    cancelEditItem.innerHTML = "Cancel";
+    cancelEditItem.classList.add('button');
+    cancelEditItem.addEventListener('click', () => {
+        renderTodos();
+    });
+    listItem.appendChild(editItemInput);
+    listItem.appendChild(toggleCompleteItem);
+    listItem.appendChild(saveEditItem);
+    listItem.appendChild(cancelEditItem);
 };
 // const doSomething = () => {...}
 addButton.addEventListener('click', () => {
